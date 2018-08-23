@@ -29,7 +29,9 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 5 on the full-stack-diagram.png as the server is now sending new.html to the client as a "response".
+  //The toHtml method appears to be interacting with the following line because it's the one handling the new template.
+  //No CRUD here
   response.sendFile('new.html', { root: './public' });
 });
 
@@ -37,7 +39,8 @@ app.get('/new-article', (request, response) => {
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  //This line of code corresponds to NUMBER 3 on the full-stack-diagram.png because the server is requesting from the DB all of the articles.
+  //This line of code is using "READ" from CRUD.
   client.query('SELECT * FROM articles')
     .then(function(result) {
       response.send(result.rows);
@@ -50,7 +53,8 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 3 on the full-stack-diagram.png because we are creating the actual table
+  //We are using "CREATE" in CRUD and it's "app.post" in article.js
   let SQL = `
     INSERT INTO articles(title, author, author_url, category, published_on, body)
     VALUES ($1, $2, $3, $4, $5, $6);
@@ -77,7 +81,8 @@ app.post('/articles', (request, response) => {
 
 app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 3 on the full-stack-diagram.png because this is a action query
+  //We use "PUT" of CRUD and this is in article.js as "app.put"
 
   let SQL = `
     UPDATE articles SET title=$1, author=$2, author_url=$3, category=$4, published_on=$5, body=$6
@@ -106,7 +111,8 @@ app.put('/articles/:id', (request, response) => {
 
 app.delete('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 3 on the full-stack-diagram.png because we're making a query to go find this thing & remove it.
+  //"app.delete" interacts with this is article.js and using DESTROY in CRUD
 
   let SQL = `DELETE FROM articles WHERE article_id=$1;`;
   let values = [request.params.id];
@@ -123,7 +129,8 @@ app.delete('/articles/:id', (request, response) => {
 
 app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 3 on the full-stack-diagram.png because we're making a query to go find this thing & remove it.
+  //This is also "app.delete" that interacts with this is article.js and using DESTROY in CRUD
 
   let SQL = `DELETE FROM articles;
   `;
@@ -138,7 +145,7 @@ app.delete('/articles', (request, response) => {
 });
 
 // COMMENT: What is this function invocation doing?
-// PUT YOUR RESPONSE HERE
+// This creates the table if it doesn't exist, creates the table
 loadDB();
 
 app.listen(PORT, () => {
@@ -150,7 +157,9 @@ app.listen(PORT, () => {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 5 on the full-stack-diagram.png because this is loading the articles and sending content to the client
+  //This interacts with Article.fetchAll in article.js
+  //This is "READ" in CRUD
 
   let SQL = 'SELECT COUNT(*) FROM articles';
   client.query(SQL)
@@ -175,7 +184,8 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This line of code corresponds to NUMBER 2 on the full-stack-diagram.png because we are saying if this doesn't exists, please make it for me
+  //This is "CREATE" in CRUD
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
