@@ -18,6 +18,11 @@ HTML, CSS, JavaScript, jQuery, handlebars, highlight.js, Node.js, Express.js, No
 
 ## Change Log
 Author: Heather Palmer <palmerheather78@gmail.com>
+Date:   Thu Aug 23 12:59:46 2018 -0700
+
+    Finished comments and answered where our lines of code matched up to the full-stack-diagram.png, we indicated which methods interacted with these same lines of code, and we indicated which parts of CRUD were being used
+
+Author: Heather Palmer <palmerheather78@gmail.com>
 Date:   Thu Aug 23 12:28:57 2018 -0700
 
     Add README and LICENSE
